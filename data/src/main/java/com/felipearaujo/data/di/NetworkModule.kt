@@ -1,23 +1,23 @@
 package com.felipearaujo.data.di
 
 import android.content.Context
-import com.felipearaujo.data.DataRepository
-import com.felipearaujo.data.DataRepositoryImp
-import com.felipearaujo.data.URL_BASE
+import com.fasterxml.jackson.module.kotlin.KotlinModule
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.felipearaujo.data.*
 import com.felipearaujo.data.local.LocalRepository
 import com.felipearaujo.data.local.LocalRepositoryImp
 import com.felipearaujo.data.remote.ApiService
+import com.felipearaujo.data.remote.BasicAuthInterceptor
 import com.felipearaujo.data.remote.RemoteRepository
 import com.felipearaujo.data.remote.RemoteRepositoryImp
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import com.squareup.picasso.Picasso
 import dagger.Module
 import dagger.Provides
 import io.realm.Realm
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.jackson.JacksonConverterFactory
 import javax.inject.Singleton
 
 /**
@@ -28,15 +28,28 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun prividesGson(): Gson {
-        val gson = GsonBuilder()
-        return gson.create()
-    }
+    fun providesAuthInterceptor() = BasicAuthInterceptor(USERNAME, PASSWORD)
 
     @Provides
     @Singleton
-    fun providesRetrofit(gson: Gson): Retrofit = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create(gson))
+    fun providesOKHttpClient(interceptor: BasicAuthInterceptor) = OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .build()
+
+
+    @Provides
+    @Singleton
+    fun providesJacksonConverter() =
+            JacksonConverterFactory.create(
+                    jacksonObjectMapper().registerModule(KotlinModule())
+            )
+
+
+    @Provides
+    @Singleton
+    fun providesRetrofit(jackson: JacksonConverterFactory, client: OkHttpClient): Retrofit = Retrofit.Builder()
+            .client(client)
+            .addConverterFactory(jackson)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .baseUrl(URL_BASE)
             .build()

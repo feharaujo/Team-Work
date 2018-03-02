@@ -1,4 +1,4 @@
-package com.felipearaujo.teamwork
+package com.felipearaujo.teamwork.base
 
 import android.annotation.SuppressLint
 import android.os.Bundle

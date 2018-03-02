@@ -6,4 +6,8 @@ package com.felipearaujo.data
 
 // Url Base
 const val URL_BASE = BuildConfig.PROJECT_BASE_URL
+const val USERNAME = BuildConfig.USERNAME
+const val PASSWORD = BuildConfig.PASSWORD
+
+
 

@@ -1,4 +1,4 @@
-package com.felipearaujo.teamwork
+package com.felipearaujo.teamwork.base
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
