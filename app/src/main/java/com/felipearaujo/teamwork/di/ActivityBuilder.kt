@@ -1,6 +1,7 @@
 package com.felipearaujo.teamwork.di
 
-import com.felipearaujo.teamwork.main.MainActivity
+import com.felipearaujo.teamwork.projects.ProjectsActivity
+import com.felipearaujo.teamwork.projects.dagger.ProjectsModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -10,7 +11,7 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class ActivityBuilder {
 
-    @ContributesAndroidInjector()
-    abstract fun bindMainActivity(): MainActivity
+    @ContributesAndroidInjector(modules = [ProjectsModule::class])
+    abstract fun bindProjectsActivity(): ProjectsActivity
 
 }

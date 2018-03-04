@@ -61,7 +61,6 @@ dependencies {
 
     // Networking
     api "com.squareup.retrofit2:retrofit:$retrofit_version"
-    //api "com.squareup.retrofit2:converter-gson:$retrofit_version"
     api "com.squareup.picasso:picasso:$picasso_version"
     api "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     api "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.4.1"

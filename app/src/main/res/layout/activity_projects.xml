@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.felipearaujo.teamwork.main.MainActivity">
+    android:background="#ff0015"
+    tools:context="com.felipearaujo.teamwork.projects.ProjectsActivity">
 
 </android.support.constraint.ConstraintLayout>

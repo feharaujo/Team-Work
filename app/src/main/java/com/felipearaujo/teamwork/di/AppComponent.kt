@@ -12,9 +12,9 @@ import javax.inject.Singleton
  * Created by felipearaujo on 28/02/18.
  */
 @Singleton
-@Component(modules = arrayOf(
-        AppModule::class, NetworkModule::class, AndroidInjectionModule::class, ActivityBuilder::class
-))
+@Component(modules = [
+    (AppModule::class), (NetworkModule::class), (AndroidInjectionModule::class), (ActivityBuilder::class)
+])
 interface AppComponent {
 
     @Component.Builder
