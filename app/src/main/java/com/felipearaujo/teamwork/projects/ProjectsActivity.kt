@@ -15,4 +15,16 @@ class ProjectsActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(view)
     }
+
+    override fun onResume() {
+        super.onResume()
+
+        presenter.onAttach()
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        presenter.onDetach()
+    }
 }

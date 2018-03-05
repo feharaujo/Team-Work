@@ -4,6 +4,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import com.felipearaujo.data.local.LocalRepository
 import com.felipearaujo.data.remote.RemoteRepository
+import com.felipearaujo.model.Response
+import io.reactivex.Single
 
 
 /**
@@ -15,6 +17,14 @@ class DataRepositoryImp constructor(
         private val localRepository: LocalRepository
 ) : DataRepository {
 
+    override fun fetchProjects(): Single<Response> {
+        if(isNetworkConnected()) {
+            return remoteRepository.fetchProjects()
+        } else {
+            // TODO Local
+            return remoteRepository.fetchProjects()
+        }
+    }
 
     /**
      * Check connection

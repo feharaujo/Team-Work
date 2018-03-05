@@ -63,8 +63,8 @@ dependencies {
     api "com.squareup.retrofit2:retrofit:$retrofit_version"
     api "com.squareup.picasso:picasso:$picasso_version"
     api "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
-    api "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.4.1"
-    api "com.squareup.retrofit2:converter-jackson:2.3.0"
+    api "com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version"
+    api "com.squareup.retrofit2:converter-jackson:$retrofit_version"
 
     // Tests
     testImplementation "junit:junit:$test_junit_version"

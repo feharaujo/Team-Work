@@ -1,11 +1,11 @@
-package com.felipearaujo.data.remote.model
+package com.felipearaujo.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-data class Company(
+data class Category(
 
-        @field:JsonProperty("is-owner")
-        val isOwner: String? = null,
+        @field:JsonProperty("color")
+        val color: String? = null,
 
         @field:JsonProperty("name")
         val name: String? = null,
