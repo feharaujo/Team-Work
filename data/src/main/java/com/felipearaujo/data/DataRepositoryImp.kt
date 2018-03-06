@@ -5,7 +5,7 @@ import android.net.ConnectivityManager
 import com.felipearaujo.data.local.LocalRepository
 import com.felipearaujo.data.remote.RemoteRepository
 import com.felipearaujo.model.Response
-import io.reactivex.Single
+import io.reactivex.Observable
 
 
 /**
@@ -17,7 +17,7 @@ class DataRepositoryImp constructor(
         private val localRepository: LocalRepository
 ) : DataRepository {
 
-    override fun fetchProjects(): Single<Response> {
+    override fun fetchProjects(): Observable<Response> {
         if(isNetworkConnected()) {
             return remoteRepository.fetchProjects()
         } else {

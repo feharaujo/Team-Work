@@ -1,23 +1,31 @@
 package com.felipearaujo.teamwork.projects
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.OnLifecycleEvent
-import android.util.Log
 import com.felipearaujo.teamwork.base.BasePresenter
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
 
 /**
  * Created by felipearaujo on 04/03/18.
  */
+
+class ProjectsPresenter
+constructor(override var view: ProjectsContract.View?) : BasePresenter<ProjectsContract.View>(), ProjectsContract.Presenter {
+
+    override fun onCreated() {
+
+    }
+
+
+    override fun fetchProjects() {
+
+    }
+
+}
+
+/*
 class ProjectsPresenter
 @Inject constructor(
         val view: ProjectsView, val interactor: ProjectsInteractor
-) : BasePresenter(), LifecycleObserver {
+) : BasePresenter<ProjectsContract.View>(), LifecycleObserver {
 
     private val disposeBag: CompositeDisposable = CompositeDisposable()
 
@@ -33,6 +41,7 @@ class ProjectsPresenter
                 .doOnNext { projectList -> projectList.projects }
                 .subscribe({
                     Log.v(" ", "${it.status}")
+
                 }, {
                     Log.v(" ", "${it.message}")
                 })
@@ -44,4 +53,4 @@ class ProjectsPresenter
     }
 
 
-}
+}*/
