@@ -32,8 +32,13 @@ abstract class BasePresenter<V : BaseContract.View> : LifecycleObserver, BaseCon
         return view != null
     }
 
-    override fun onDestroy() {
+    override fun onPresenterCreated() {
+        // IGNORE
+    }
+
+    override fun onPresenterDestroy() {
         stateBundle.clear()
     }
+
 
 }

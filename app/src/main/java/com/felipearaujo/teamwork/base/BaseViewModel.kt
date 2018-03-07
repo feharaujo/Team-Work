@@ -12,7 +12,7 @@ class BaseViewModel<V : BaseContract.View, P : BaseContract.Presenter<V>> : View
     override fun onCleared() {
         super.onCleared()
 
-        presenter?.onDestroy()
+        presenter?.onPresenterDestroy()
         presenter = null
     }
 

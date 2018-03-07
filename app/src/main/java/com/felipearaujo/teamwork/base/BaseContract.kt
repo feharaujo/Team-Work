@@ -28,9 +28,9 @@ interface BaseContract {
 
         fun isViewAttached(): Boolean
 
-        fun onCreated()
+        fun onPresenterCreated()
 
-        fun onDestroy()
+        fun onPresenterDestroy()
 
     }
 

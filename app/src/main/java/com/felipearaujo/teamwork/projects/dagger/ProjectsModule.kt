@@ -1,5 +1,6 @@
 package com.felipearaujo.teamwork.projects.dagger
 
+import com.felipearaujo.data.DataRepository
 import com.felipearaujo.teamwork.projects.ProjectsActivity
 import com.felipearaujo.teamwork.projects.ProjectsContract
 import com.felipearaujo.teamwork.projects.ProjectsPresenter
@@ -18,10 +19,7 @@ class ProjectsModule {
     fun providesView(activity: ProjectsActivity): ProjectsContract.View = activity
 
     @Provides
-    fun providesPresenter(view: ProjectsContract.View): ProjectsContract.Presenter = ProjectsPresenter(view)
-
-    /*@Provides
-    fun providesViewModel(activity: ProjectsActivity) =
-            ViewModelProviders.of(activity).get(BaseViewModel<ProjectsContract.View, ProjectsContract.Presenter>()::class.java);*/
+    fun providesPresenter(view: ProjectsContract.View, dataRepository: DataRepository):
+            ProjectsContract.Presenter = ProjectsPresenter(view, dataRepository)
 
 }

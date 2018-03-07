@@ -1,7 +1,7 @@
 package com.felipearaujo.data.remote
 
 import com.felipearaujo.model.Response
-import io.reactivex.Observable
+import io.reactivex.Single
 import retrofit2.http.GET
 
 /**
@@ -10,6 +10,6 @@ import retrofit2.http.GET
 interface ApiService {
 
     @GET("projects.json")
-    fun fetchAllProject() : Observable<Response>
+    fun fetchAllProject() : Single<Response>
 
 }

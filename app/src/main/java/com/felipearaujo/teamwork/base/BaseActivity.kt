@@ -13,9 +13,8 @@ import dagger.android.AndroidInjection
 abstract class BaseActivity<V : BaseContract.View, P : BaseContract.Presenter<V>> : AppCompatActivity(), BaseContract.View {
 
     abstract var presenter: P
-    //abstract var viewModel: BaseViewModel<V, P>
 
-    private val lifecyclerRegistry = LifecycleRegistry(this)
+    private val lifecycleRegistry = LifecycleRegistry(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Performe injection
@@ -23,16 +22,12 @@ abstract class BaseActivity<V : BaseContract.View, P : BaseContract.Presenter<V>
         super.onCreate(savedInstanceState)
 
         val viewModel = ViewModelProviders.of(this).get(BaseViewModel<V, P>()::class.java)
-        //ViewModelProviders.of(activity).get(BaseViewModel<ProjectsContract.View, ProjectsContract.Presenter>()::class.java)
+        viewModel.presenter = initPresenter()
 
-        presenter = initPresenter()
-        viewModel.presenter = presenter
+        presenter = viewModel.presenter as P
         presenter.onAttachView(this as V)
-        presenter.onCreated()
-    }
-
-    override fun getLifecycle(): Lifecycle {
-        return lifecyclerRegistry
+        presenter.onAttachLifecycle(lifecycle)
+        presenter.onPresenterCreated()
     }
 
     override fun onDestroy() {
@@ -40,6 +35,10 @@ abstract class BaseActivity<V : BaseContract.View, P : BaseContract.Presenter<V>
 
         presenter.onDetachLifecycle(lifecycle)
         presenter.onDetachView()
+    }
+
+    override fun getLifecycle(): Lifecycle {
+        return lifecycleRegistry
     }
 
     abstract fun initPresenter(): P
