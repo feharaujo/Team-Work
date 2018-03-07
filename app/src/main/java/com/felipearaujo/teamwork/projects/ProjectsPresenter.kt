@@ -37,11 +37,13 @@ constructor(override var view: ProjectsContract.View?, var dataRepository: DataR
         return dataRepository.fetchProjects()
                 .doOnSubscribe {
                     view?.showLoading()
+                    view?.hideRecyclerView()
                 }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doAfterSuccess {
                     view?.hideLoading()
+                    view?.showRecyclerView()
                 }
                 .subscribeBy(onSuccess = {
                     val result = it.projects as List<ProjectsItem>

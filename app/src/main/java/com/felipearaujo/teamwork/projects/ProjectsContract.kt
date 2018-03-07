@@ -15,6 +15,10 @@ class ProjectsContract {
 
         fun hideLoading()
 
+        fun showRecyclerView()
+
+        fun hideRecyclerView()
+
         fun updateProjectsData(list: List<ProjectsItem>)
 
     }
