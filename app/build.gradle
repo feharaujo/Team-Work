@@ -15,6 +15,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testOptions {
+            unitTests.returnDefaultValues = true
+        }
         multiDexEnabled true
     }
     buildTypes {
@@ -87,6 +90,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-core-utils'
     })
     testImplementation "junit:junit:$test_junit_version"
+    testImplementation "org.mockito:mockito-core:$test_mockito_version"
+    testImplementation 'org.powermock:powermock-api-easymock:1.7.4'
     androidTestImplementation "com.android.support.test:runner:$test_runner_version"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$test_espresso_core_version"
 }

@@ -2,10 +2,11 @@ package com.felipearaujo.teamwork.projects
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.OnLifecycleEvent
-import android.util.Log
 import com.felipearaujo.data.DataRepository
 import com.felipearaujo.model.ProjectsItem
+import com.felipearaujo.model.Response
 import com.felipearaujo.teamwork.base.BasePresenter
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -34,6 +35,17 @@ constructor(override var view: ProjectsContract.View?, var dataRepository: DataR
     }
 
     override fun fetchProjects(): Disposable {
+        return requestProjectsObservable()
+                .subscribeBy(onSuccess = {
+                    val result = it.projects as List<ProjectsItem>
+                    view?.updateProjectsData(result)
+                }, onError = {
+                    view?.showErrorMessage(it.message ?: "Error")
+                })
+
+    }
+
+    private fun requestProjectsObservable(): Single<Response> {
         return dataRepository.fetchProjects()
                 .doOnSubscribe {
                     view?.showLoading()
@@ -45,13 +57,9 @@ constructor(override var view: ProjectsContract.View?, var dataRepository: DataR
                     view?.hideLoading()
                     view?.showRecyclerView()
                 }
-                .subscribeBy(onSuccess = {
-                    val result = it.projects as List<ProjectsItem>
-                    view?.updateProjectsData(result)
-                }, onError = {
-                    Log.v(" ", "${it.message}")
-                })
-
+                .doOnError {
+                    view?.hideLoading()
+                }
     }
 
 
