@@ -12,6 +12,7 @@ import javax.inject.Inject
 
 class ProjectsActivity : BaseActivity<ProjectsContract.View, ProjectsContract.Presenter>(), ProjectsContract.View {
 
+
     @Inject
     override lateinit var presenter: ProjectsContract.Presenter
 
@@ -44,6 +45,10 @@ class ProjectsActivity : BaseActivity<ProjectsContract.View, ProjectsContract.Pr
 
     override fun hideRecyclerView() {
         rv_projects.visibility = View.GONE
+    }
+
+    override fun showErrorMessage(message: String) {
+
     }
 
     override fun updateProjectsData(list: List<ProjectsItem>) {

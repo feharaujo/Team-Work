@@ -21,6 +21,8 @@ class ProjectsContract {
 
         fun updateProjectsData(list: List<ProjectsItem>)
 
+        fun showErrorMessage(message: String)
+
     }
 
     interface Presenter: BaseContract.Presenter<ProjectsContract.View> {
