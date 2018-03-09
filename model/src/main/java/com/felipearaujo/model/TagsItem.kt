@@ -1,7 +1,10 @@
 package com.felipearaujo.model
 
+import android.os.Parcelable
 import com.fasterxml.jackson.annotation.JsonProperty
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class TagsItem(
 
         @field:JsonProperty("color")
@@ -12,4 +15,4 @@ data class TagsItem(
 
         @field:JsonProperty("id")
         val id: String? = null
-)
+) : Parcelable

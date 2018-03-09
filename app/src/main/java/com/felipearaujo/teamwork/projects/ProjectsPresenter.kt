@@ -24,6 +24,8 @@ constructor(override var view: ProjectsContract.View?, var dataRepository: DataR
 
     private val disposeBag: CompositeDisposable = CompositeDisposable()
 
+    private val GENERIC_ERROR_MSG = "An error has occurred, please try again"
+
     @OnLifecycleEvent(value = Lifecycle.Event.ON_RESUME)
     fun onCreate() {
         disposeBag.add(fetchProjects())
@@ -40,7 +42,7 @@ constructor(override var view: ProjectsContract.View?, var dataRepository: DataR
                     val result = it.projects as List<ProjectsItem>
                     view?.updateProjectsData(result)
                 }, onError = {
-                    view?.showErrorMessage(it.message ?: "Error")
+                    view?.showErrorMessage(it.message ?: GENERIC_ERROR_MSG)
                 })
 
     }
@@ -59,6 +61,7 @@ constructor(override var view: ProjectsContract.View?, var dataRepository: DataR
                 }
                 .doOnError {
                     view?.hideLoading()
+                    view?.showErrorMessage(it.message ?: GENERIC_ERROR_MSG)
                 }
     }
 

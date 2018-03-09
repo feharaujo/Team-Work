@@ -16,7 +16,7 @@ class ProjectsActivity : BaseActivity<ProjectsContract.View, ProjectsContract.Pr
     @Inject
     override lateinit var presenter: ProjectsContract.Presenter
 
-    val recyclerViewAdapter: ProjectsAdapter by lazy {
+    private val recyclerViewAdapter: ProjectsAdapter by lazy {
         ProjectsAdapter()
     }
 
@@ -48,7 +48,8 @@ class ProjectsActivity : BaseActivity<ProjectsContract.View, ProjectsContract.Pr
     }
 
     override fun showErrorMessage(message: String) {
-
+        tv_error.text = message
+        tv_error.visibility = View.VISIBLE
     }
 
     override fun updateProjectsData(list: List<ProjectsItem>) {

@@ -1,7 +1,10 @@
 package com.felipearaujo.model
 
+import android.os.Parcelable
 import com.fasterxml.jackson.annotation.JsonProperty
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class ProjectsItem(
 
         @field:JsonProperty("replyByEmailEnabled")
@@ -21,9 +24,6 @@ data class ProjectsItem(
 
         @field:JsonProperty("overview-start-page")
         val overviewStartPage: String? = null,
-
-        @field:JsonProperty("boardData")
-        val boardData: BoardData? = null,
 
         @field:JsonProperty("starred")
         val starred: Boolean? = null,
@@ -85,12 +85,11 @@ data class ProjectsItem(
         @field:JsonProperty("category")
         val category: Category? = null,
 
-        @field:JsonProperty("integrations")
-        val integrations: Integrations? = null,
-
         @field:JsonProperty("startDate")
         val startDate: String? = null,
 
         @field:JsonProperty("status")
-        val status: String? = null
-)
+        val status: String? = null,
+
+        val activity: List<ActivityItem?>? = null
+) : Parcelable
