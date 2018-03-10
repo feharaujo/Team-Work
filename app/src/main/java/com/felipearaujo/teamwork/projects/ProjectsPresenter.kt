@@ -3,6 +3,7 @@ package com.felipearaujo.teamwork.projects
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.OnLifecycleEvent
 import com.felipearaujo.data.DataRepository
+import com.felipearaujo.data.GENERIC_ERROR_MSG
 import com.felipearaujo.model.ProjectsItem
 import com.felipearaujo.model.Response
 import com.felipearaujo.teamwork.base.BasePresenter
@@ -17,14 +18,13 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by felipearaujo on 04/03/18.
  */
+
 @Suppress("UNCHECKED_CAST")
 class ProjectsPresenter
-constructor(override var view: ProjectsContract.View?, var dataRepository: DataRepository) :
+constructor(override var view: ProjectsContract.View?, private var dataRepository: DataRepository) :
         BasePresenter<ProjectsContract.View>(), ProjectsContract.Presenter {
 
     private val disposeBag: CompositeDisposable = CompositeDisposable()
-
-    private val GENERIC_ERROR_MSG = "An error has occurred, please try again"
 
     @OnLifecycleEvent(value = Lifecycle.Event.ON_RESUME)
     fun onCreate() {
@@ -42,7 +42,7 @@ constructor(override var view: ProjectsContract.View?, var dataRepository: DataR
                     val result = it.projects as List<ProjectsItem>
                     view?.updateProjectsData(result)
                 }, onError = {
-                    view?.showErrorMessage(it.message ?: GENERIC_ERROR_MSG)
+                    view?.showErrorMessage(GENERIC_ERROR_MSG)
                 })
 
     }
@@ -61,7 +61,7 @@ constructor(override var view: ProjectsContract.View?, var dataRepository: DataR
                 }
                 .doOnError {
                     view?.hideLoading()
-                    view?.showErrorMessage(it.message ?: GENERIC_ERROR_MSG)
+                    view?.showErrorMessage(GENERIC_ERROR_MSG)
                 }
     }
 

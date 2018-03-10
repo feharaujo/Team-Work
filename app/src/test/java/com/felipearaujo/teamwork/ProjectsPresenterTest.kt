@@ -6,10 +6,8 @@ import com.felipearaujo.model.ProjectsItem
 import com.felipearaujo.model.Response
 import com.felipearaujo.teamwork.projects.ProjectsContract
 import com.felipearaujo.teamwork.projects.ProjectsPresenter
-import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.android.plugins.RxAndroidPlugins
-import io.reactivex.functions.Function
 import io.reactivex.observers.TestObserver
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
@@ -22,7 +20,6 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.powermock.reflect.Whitebox.invokeMethod
-import java.util.concurrent.Callable
 
 
 /**
@@ -48,16 +45,8 @@ open class ProjectsPresenterTest {
     fun setUp() {
         MockitoAnnotations.initMocks(this)
 
-        RxJavaPlugins.setIoSchedulerHandler(object : Function<Scheduler, Scheduler> {
-            override fun apply(t: Scheduler): Scheduler {
-                return Schedulers.trampoline();
-            }
-        })
-        RxAndroidPlugins.setInitMainThreadSchedulerHandler(object : Function<Callable<Scheduler>, Scheduler> {
-            override fun apply(t: Callable<Scheduler>): Scheduler {
-                return Schedulers.trampoline();
-            }
-        })
+        RxJavaPlugins.setIoSchedulerHandler { Schedulers.trampoline() }
+        RxAndroidPlugins.setInitMainThreadSchedulerHandler { Schedulers.trampoline(); }
     }
 
     @Test

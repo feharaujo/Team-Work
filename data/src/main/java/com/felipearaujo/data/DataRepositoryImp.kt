@@ -18,11 +18,10 @@ class DataRepositoryImp constructor(
 ) : DataRepository {
 
     override fun fetchProjects(): Single<Response> {
-        if(isNetworkConnected()) {
-            return remoteRepository.fetchProjects()
+        return if(isNetworkConnected()) {
+            remoteRepository.fetchProjects()
         } else {
-            // TODO Local
-            return remoteRepository.fetchProjects()
+            localRepository.fetchProjects()
         }
     }
 

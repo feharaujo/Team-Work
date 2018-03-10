@@ -96,10 +96,10 @@ class ProjectsAdapter : RecyclerView.Adapter<ProjectsAdapter.ProjectViewHolder>(
         val cal = Calendar.getInstance()
         cal.add(Calendar.DATE, 1)
 
-        val format = SimpleDateFormat("yyyyMMdd")
+        val format = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
         val date = format.parse(dateString)
 
-        val format2 = SimpleDateFormat("dd/MM/yyyy")
+        val format2 = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
         return format2.format(date)
     }

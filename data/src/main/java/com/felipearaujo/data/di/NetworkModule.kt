@@ -1,6 +1,7 @@
 package com.felipearaujo.data.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.felipearaujo.data.*
@@ -13,7 +14,6 @@ import com.felipearaujo.data.remote.RemoteRepositoryImp
 import com.squareup.picasso.Picasso
 import dagger.Module
 import dagger.Provides
-import io.realm.Realm
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -84,7 +84,7 @@ class NetworkModule {
      */
     @Provides
     @Singleton
-    fun providesLocalRepository(realm: Realm): LocalRepository = LocalRepositoryImp(realm)
+    fun providesLocalRepository(preferences: SharedPreferences): LocalRepository = LocalRepositoryImp(preferences)
 
 
     @Provides
@@ -93,9 +93,8 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun providesRealm(appContext: Context): Realm {
-        Realm.init(appContext)
-        return Realm.getDefaultInstance()
+    fun providesPreferences(appContext: Context): SharedPreferences {
+        return appContext.getSharedPreferences("DEFAULT_PREFERENCES", Context.MODE_PRIVATE)
     }
 
 

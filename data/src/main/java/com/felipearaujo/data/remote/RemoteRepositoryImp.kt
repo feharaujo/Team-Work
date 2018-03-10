@@ -2,7 +2,6 @@ package com.felipearaujo.data.remote
 
 import com.felipearaujo.data.local.LocalRepository
 import com.felipearaujo.model.Response
-import io.reactivex.Observable
 import io.reactivex.Single
 
 /**
@@ -14,7 +13,11 @@ class RemoteRepositoryImp(
 ) : RemoteRepository {
 
     override fun fetchProjects(): Single<Response> {
-        return service.fetchAllProject()
+        val cache = service.fetchAllProject().cache()
+        localRepository.saveCacheData(cache)
+
+        return cache
+
     }
 
 

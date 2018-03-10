@@ -13,7 +13,6 @@ buildscript {
     ext.retrofit_version = '2.3.0'
     ext.picasso_version = '2.5.2'
     ext.jackson_version = '2.9.4.1'
-    ext.realm = '4.3.4'
     ext.rxkotlin_version = '2.2.0'
     ext.rxbinding_version = '2.1.1'
     ext.multidex_version = '1.0.3'
@@ -29,7 +28,6 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "io.realm:realm-gradle-plugin:$realm"
     }
 }
 
