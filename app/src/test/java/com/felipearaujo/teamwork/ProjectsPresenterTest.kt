@@ -33,12 +33,12 @@ open class ProjectsPresenterTest {
     @Mock
     lateinit var dataRepository: DataRepository
 
-    val presenter: ProjectsPresenter by lazy {
+    private val presenter: ProjectsPresenter by lazy {
         ProjectsPresenter(view, dataRepository)
     }
 
-    val fakeResponse: Response by lazy {
-        Response("ok", arrayListOf(ProjectsItem()))
+    private val fakeResponse: Response by lazy {
+        Response("ok", listOf(ProjectsItem()))
     }
 
     @Before
@@ -70,7 +70,7 @@ open class ProjectsPresenterTest {
     @Test
     fun onReceiveError() {
         Mockito.doReturn(
-                Single.error<NetworkErrorException>(Throwable(NetworkErrorException()))
+                Single.error<Response>(Throwable(NetworkErrorException()))
         ).`when`(dataRepository).fetchProjects()
 
         val testObserver = TestObserver<Response>()

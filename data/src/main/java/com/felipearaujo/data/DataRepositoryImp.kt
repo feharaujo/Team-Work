@@ -17,12 +17,16 @@ class DataRepositoryImp constructor(
         private val localRepository: LocalRepository
 ) : DataRepository {
 
+    private var memoryCache: Response? = null
+
+
     override fun fetchProjects(): Single<Response> {
-        return if(isNetworkConnected()) {
-            remoteRepository.fetchProjects()
-        } else {
-            localRepository.fetchProjects()
+        return when {
+            memoryCache != null -> Single.just(memoryCache)
+            isNetworkConnected() -> remoteRepository.fetchProjects()
+            else -> localRepository.fetchProjects()
         }
+
     }
 
     /**

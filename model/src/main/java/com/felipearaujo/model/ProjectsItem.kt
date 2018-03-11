@@ -96,5 +96,14 @@ data class ProjectsItem(
         @field:JsonProperty("status")
         val status: String? = null,
 
-        val activity: List<ActivityItem?>? = null
-) : Parcelable
+        var activity: List<ActivityItem?>? = null
+
+
+) : Parcelable {
+
+    fun setActivitiesList(list: List<ActivityItem>): ProjectsItem {
+        activity = list
+        return this
+    }
+
+}
