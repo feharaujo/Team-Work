@@ -23,6 +23,7 @@ class ProjectsContract {
 
         fun showErrorMessage(message: String)
 
+        fun showActivities(position: Int)
     }
 
     interface Presenter: BaseContract.Presenter<ProjectsContract.View> {

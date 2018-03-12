@@ -27,7 +27,7 @@ class ProjectActContract {
 
     interface Presenter: BaseContract.Presenter<ProjectActContract.View> {
 
-        fun fetchActivity(): Disposable
+        fun fetchActivity(position: Int): Disposable
 
     }
 

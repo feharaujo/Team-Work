@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-@JsonIgnoreProperties(value = ["boardData", "projectAdmin"])
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class ProjectsItem(
 
         @field:JsonProperty("replyByEmailEnabled")

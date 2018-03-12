@@ -6,18 +6,18 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.felipearaujo.model.ProjectsItem
 import com.felipearaujo.teamwork.R
+import com.felipearaujo.teamwork.activities.ProjectActActivity
 import com.felipearaujo.teamwork.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_projects.*
 import javax.inject.Inject
 
 class ProjectsActivity : BaseActivity<ProjectsContract.View, ProjectsContract.Presenter>(), ProjectsContract.View {
 
-
     @Inject
     override lateinit var presenter: ProjectsContract.Presenter
 
     private val recyclerViewAdapter: ProjectsAdapter by lazy {
-        ProjectsAdapter()
+        ProjectsAdapter(this)
     }
 
     override fun initPresenter(): ProjectsContract.Presenter {
@@ -29,6 +29,10 @@ class ProjectsActivity : BaseActivity<ProjectsContract.View, ProjectsContract.Pr
         setContentView(R.layout.activity_projects)
 
         setupRecyclerView()
+    }
+
+    override fun showActivities(position: Int) {
+        ProjectActActivity.start(this, position)
     }
 
     override fun showLoading() {

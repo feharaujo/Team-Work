@@ -18,9 +18,9 @@ import java.util.*
 /**
  * Created by felipearaujo on 07/03/18.
  */
-class ProjectsAdapter : RecyclerView.Adapter<ProjectsAdapter.ProjectViewHolder>() {
+class ProjectsAdapter(val activityView: ProjectsActivity) : RecyclerView.Adapter<ProjectsAdapter.ProjectViewHolder>() {
 
-    val list = ArrayList<ProjectsItem>()
+    private val list = ArrayList<ProjectsItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_project, parent, false)
@@ -43,23 +43,14 @@ class ProjectsAdapter : RecyclerView.Adapter<ProjectsAdapter.ProjectViewHolder>(
 
     inner class ProjectViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 
-        var tvProjectName: TextView? = null
-        var tvCompanyName: TextView? = null
-        var tvTags: TextView? = null
-        var tvRangeDate: TextView? = null
-        var tvDescription: TextView? = null
-
-        init {
-            tvProjectName = itemView?.findViewById(R.id.tv_project_name)
-            tvCompanyName = itemView?.findViewById(R.id.tv_company_name)
-            tvTags = itemView?.findViewById(R.id.tv_tags)
-            tvRangeDate = itemView?.findViewById(R.id.tv_range_date)
-            tvDescription = itemView?.findViewById(R.id.tv_description)
-        }
+        private val tvProjectName: TextView? = itemView?.findViewById(R.id.tv_project_name)
+        private val tvCompanyName: TextView? = itemView?.findViewById(R.id.tv_company_name)
+        private val tvTags: TextView? = itemView?.findViewById(R.id.tv_tags)
+        private val tvRangeDate: TextView? = itemView?.findViewById(R.id.tv_range_date)
+        private val tvDescription: TextView? = itemView?.findViewById(R.id.tv_description)
+        private val cardContainer: View? = itemView?.findViewById(R.id.card_container)
 
         fun bind(projectItem: ProjectsItem) {
-
-
             tvTags?.text = fromHtml(createTag(projectItem.tags))
 
             tvProjectName?.text = projectItem.name
@@ -67,6 +58,10 @@ class ProjectsAdapter : RecyclerView.Adapter<ProjectsAdapter.ProjectViewHolder>(
             tvDescription?.text = projectItem.description
 
             tvRangeDate?.text = "${createDateSimple(projectItem.startDate)} - ${createDateSimple(projectItem.endDate)}"
+
+            cardContainer?.setOnClickListener {
+                activityView.showActivities(adapterPosition)
+            }
         }
 
         private fun createTag(tags: List<TagsItem?>?): String {
@@ -103,18 +98,5 @@ class ProjectsAdapter : RecyclerView.Adapter<ProjectsAdapter.ProjectViewHolder>(
 
         return format2.format(date)
     }
-
-    /*private fun createDateFull(dateString: String?): String {
-        val cal = Calendar.getInstance()
-        cal.add(Calendar.DATE, 1)
-
-        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
-        val date = format.parse(dateString)
-
-        val format2 = SimpleDateFormat("dd/MM/yyyy")
-
-        return format2.format(date)
-    }*/
-
 
 }

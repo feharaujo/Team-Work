@@ -19,7 +19,7 @@ class RemoteRepositoryImp(
 
 
     override fun fetchProjects(): Single<Response> {
-        return service.fetchAllProject2()
+        val cacheResponse = service.fetchAllProject2()
                 .flatMapIterable {
                     it.projects
                 }
@@ -27,15 +27,19 @@ class RemoteRepositoryImp(
                     Observable.zip(
                             Observable.just(it),
                             service.fetchActivities(it.id!!),
-                            BiFunction<ProjectsItem, ResponseActivity, ProjectsItem> { first: ProjectsItem, second: ResponseActivity ->
-                                first.setActivitiesList(second.activity as List<ActivityItem>)
+                            BiFunction<ProjectsItem, ResponseActivity, ProjectsItem> {
+                                first: ProjectsItem, second: ResponseActivity ->
+                                    first.setActivitiesList(second.activity as List<ActivityItem>)
                             }
                     )
                 }
                 .toList()
                 .map { Response("ok", it.toList()) }
+                .cache()
 
+        localRepository.saveCacheData(cacheResponse)
 
+        return cacheResponse
     }
 
 }
